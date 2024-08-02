@@ -6,3 +6,14 @@ set(CMAKE_CXX_STANDARD 17)
 set(EXECUTABLE_OUTPUT_PATH ${CMAKE_CURRENT_BINARY_DIR}/bin)
 
 add_executable(test01 src/test01.c)
+
+
+add_executable(test05 src/test05.c)
+add_executable(test04 src/test04.c)
+add_executable(test03 src/test03.c)
+
+add_executable(test02 src/test02.c)
+
+add_executable(test06 src/test06.c)
+
+add_executable(test07 src/test07.c)

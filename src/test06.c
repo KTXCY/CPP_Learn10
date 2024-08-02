@@ -9,7 +9,7 @@
 typedef int ElemType;
 
 typedef struct CirLinkList {
-    ElemType date;
+    ElemType data;
     struct CirLinkList *next;
 } LNode, *CirLinkList;
 
@@ -21,7 +21,7 @@ bool InitCirLinkList(CirLinkList *L) {
     if ((*L) == NULL) {
         return false;
     }
-    (*L)->date = 0;
+    (*L)->data = 0;
     (*L)->next = (*L);
     return true;
 }
@@ -45,6 +45,9 @@ bool InsertCirLinkList(CirLinkList *L, int i, ElemType e) {
     if (L == NULL || (*L) == NULL) {
         return false;
     }
+    if (i < 1) {
+        return false;
+    }
     int j = 0;
     LNode *p = (*L);
     while (p->next != (*L) && j < i - 1) {
@@ -58,7 +61,7 @@ bool InsertCirLinkList(CirLinkList *L, int i, ElemType e) {
     if (s == NULL) {
         return false;
     }
-    s->date = e;
+    s->data = e;
     s->next = p->next;
     p->next = s;
     return true;
@@ -68,13 +71,16 @@ bool DelCirLinkList(CirLinkList *L, int i) {
     if (L == NULL || (*L) == NULL) {
         return false;
     }
+    if (i < 1) {
+        return false;
+    }
     int j = 0;
     LNode *p = (*L);
     while (p->next != (*L) && j < i - 1) {
         p = p->next;
         j++;
     }
-    if (p->next == (*L) || p == (*L)) {
+    if (p->next == (*L)) {
         return false;
     }
     LNode *s = p->next;
@@ -83,13 +89,45 @@ bool DelCirLinkList(CirLinkList *L, int i) {
     return true;
 }
 
-void PrintLinkList(CirLinkList L) {
-    LNode *p = L->next;
-    while (p != L) {
-        printf("%d ", p->date);
-        p = p->next;
+bool CreateCirList_H(CirLinkList *L, int n) {
+    (*L) = (LNode *) malloc(sizeof(LNode));
+    if ((*L) == NULL) {
+        return false;
     }
-    printf("\n");
+    (*L)->data = 0;
+    (*L)->next = (*L);
+
+    for (int i = 0; i < n; i++) {
+        LNode *p = (LNode *) malloc(sizeof(LNode));
+        if (p == NULL) {
+            return false;
+        }
+        scanf("%d", &p->data);
+        p->next = (*L)->next;
+        (*L)->next = p;
+    }
+    return true;
+}
+
+bool CreateCirList_R(CirLinkList *L, int n) {
+    (*L) = (LNode *)malloc(sizeof(LNode));
+    if ((*L) == NULL) {
+        return false;
+    }
+    (*L)->data = 0;
+    (*L)->next = (*L);
+    LNode *tail = (*L);
+    for (int i = 0; i < n; i++) {
+        LNode *p = (LNode *)malloc(sizeof(LNode));
+        if (p == NULL) {
+            return false;
+        }
+        scanf("%d", &p->data);
+        p->next = (*L);
+        tail->next = p;
+        tail = p;
+    }
+    return true;
 }
 
 
@@ -100,10 +138,8 @@ int main() {
     InsertCirLinkList(&p, 1, 3);
     InsertCirLinkList(&p, 2, 6);
     InsertCirLinkList(&p, 4, 6);
-    // InsertCirLinkList(&p, 0, 9);
-    PrintLinkList(p);
     DelCirLinkList(&p, 0);
-    PrintLinkList(p);
+
 
     DesCirLinkList(&p);
     return 0;
