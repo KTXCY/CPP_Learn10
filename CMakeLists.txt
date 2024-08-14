@@ -17,3 +17,14 @@ add_executable(test02 src/test02.c)
 add_executable(test06 src/test06.c)
 
 add_executable(test07 src/test07.c)
+
+add_executable(test08
+        src/test08.c)
+
+add_executable(test09
+        src/test09.c
+)
+
+add_executable(test10 src/test10.c)
+add_executable(test11 src/test11.c)
+add_executable(test12 src/test12.c)
